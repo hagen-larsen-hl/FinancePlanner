@@ -9,11 +9,12 @@ services:
       - POSTGRES_DB=$POSTGRES_DB
       - POSTGRES_USER=$POSTGRES_USER
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-  web:
+  
+  backend:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - ./backend:/backend
     ports:
       - "8000:8000"
     environment:
@@ -24,3 +25,9 @@ services:
     depends_on:
       - db
 
+  frontend:
+    build: frontend/
+    volumes:
+      - ./frontend:/frontend
+    ports:
+      - "8080:8080"
