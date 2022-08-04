@@ -28,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ADMINS = [
+    ['admin', 'admin@email.com', 'Bossman', 'Administrator'],
+]
+
 
 # Application definition
 
