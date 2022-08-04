@@ -1,0 +1,28 @@
+<div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Institution</th>
+            <th scope="col">Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <p>{{ accounts }}</p>
+        {% for account in accounts %}
+            <tr>
+                <td>{{ account.name }}</td>
+                <td>{{ account.institution_id.name }}</td>
+                <td>${{ account.current_balance }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    {% for account in accounts %}
+        {% include 'accounts/account_card.html' with account=account %}
+    {% endfor %}
+</div>
+
+</div>

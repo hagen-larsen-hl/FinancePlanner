@@ -36,6 +36,7 @@ ADMINS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'users',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'localflavor',
 ]
 
 MIDDLEWARE = [

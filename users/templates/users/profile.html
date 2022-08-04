@@ -1,4 +1,4 @@
-{% extends "users/base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -10,6 +10,13 @@
         </div>
         <div class="card-body">
             <p>This is where your profile will be.</p>
+        </div>
+    </div>
+
+    <div>
+        These are your accounts.
+        <div>
+            {% include 'accounts/user_accounts_table.html' with accounts=user_accounts %}
         </div>
     </div>
 </div>
