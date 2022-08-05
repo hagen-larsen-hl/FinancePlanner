@@ -24,6 +24,8 @@ function updateBalance(accountId) {
     editBalance.hidden = true;
     let saveBalance = document.getElementById(`${accountId}-save-balance`);
     saveBalance.hidden = false;
+    let discardEdit = document.getElementById(`${accountId}-discard-edit`);
+    discardEdit.hidden = false;
 }
 
 function saveBalance(accountId) {
@@ -43,4 +45,16 @@ function saveBalance(accountId) {
             "Accept": "application/json"
         },
     })
+}
+
+function discardEdit(accountId) {
+    let balanceCell = document.getElementById(`${accountId}-balance`);
+    balanceCell.contentEditable = false;
+    balanceCell.blur();
+    let editBalance = document.getElementById(`${accountId}-edit-balance`);
+    editBalance.hidden = false;
+    let saveBalance = document.getElementById(`${accountId}-save-balance`);
+    saveBalance.hidden = true;
+    let discardEdit = document.getElementById(`${accountId}-discard-edit`);
+    discardEdit.hidden = true;
 }

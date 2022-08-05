@@ -4,7 +4,7 @@
 
 <!--Register-->
 <div class="d-flex justify-content-center m-2">
-    <div class="col-4">
+    <div class="col-6">
         <div class="card m-2">
             <div class="card-header">
                 <h1>Welcome, {{ user.first_name }}!</h1>
@@ -15,18 +15,12 @@
         </div>
     </div>
 
-    <div class="col-4">
-        <div>
-            <h1>Accounts History</h1>
-            <div id="chart_div"></div>
-        </div>
-    </div>
-
-    <div class="col-4">
+    <div class="col-6">
         <h1>Accounts Summary</h1>
         <div>
             {% include 'accounts/user_accounts_table.html' with accounts=user_accounts %}
         </div>
+        <div id="chart_div"></div>
     </div>
 </div>
 

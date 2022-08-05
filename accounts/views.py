@@ -1,4 +1,6 @@
 import datetime
+from tabnanny import check
+from unicodedata import decimal
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewAccountForm, NewInstitutionForm
 from django.contrib import messages
@@ -39,12 +41,21 @@ def updateBalance(request, account_id, balance):
     if request.method == "POST":
         checkpoint = AccountCheckpoint()
         account = get_object_or_404(Account, pk=account_id)
-        checkpoint.account_id = account
-        if balance.startswith("$"):
-            balance = balance[1:]
-        checkpoint.balance = float(balance)
-        checkpoint.save()
-        account.current_balance = balance
-        account.save()
-
+        if balance != account.current_balance:
+            checkpoint.account_id = account
+            if balance.startswith("$"):
+                balance = balance[1:]
+            checkpoint.old_balance = float(account.current_balance)
+            checkpoint.new_balance = float(balance)
+            checkpoint.delta = checkpoint.new_balance - checkpoint.old_balance
+            account.current_balance = checkpoint.new_balance
+            account.save()
+            checkpoint.save()
+            messages.success(request, "Balance updated successfully.")
     return redirect("users:profile")
+
+
+def showAccountHistory(request, account_id):
+    account = get_object_or_404(Account, pk=account_id)
+    checkpoints = AccountCheckpoint.objects.filter(account_id=account_id)
+    return render(request=request, template_name='accounts/account_history.html', context={"account": account, "checkpoints": checkpoints})

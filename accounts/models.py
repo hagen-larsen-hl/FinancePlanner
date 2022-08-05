@@ -20,11 +20,13 @@ class Account(models.Model):
 
 
 class AccountCheckpoint(models.Model):
-    account_id = models.ForeignKey(Account, on_delete=models.CASCADE)
-    balance = models.DecimalField(max_digits=20, decimal_places=2)
+    account_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="checkpoint_ids")
+    old_balance = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    new_balance = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    delta = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     create_date = models.DateTimeField(auto_now_add=True)
 
     __str__ = lambda self: self.account_id.name + " - " + str(self.balance) + " - " + str(self.create_date)
 
     class Meta:
-        ordering = ['-create_date']
+        ordering = ['create_date']
