@@ -2,7 +2,7 @@ import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewAccountForm, NewInstitutionForm
 from django.contrib import messages
-from .models import Account
+from .models import Account, AccountCheckpoint
 
 
 def createAccount(request):
@@ -33,3 +33,18 @@ def createInstitution(request):
     else:
         form = NewInstitutionForm()
     return render(request=request, template_name='accounts/institution_form.html', context={"form": form})
+
+
+def updateBalance(request, account_id, balance):
+    if request.method == "POST":
+        checkpoint = AccountCheckpoint()
+        account = get_object_or_404(Account, pk=account_id)
+        checkpoint.account_id = account
+        if balance.startswith("$"):
+            balance = balance[1:]
+        checkpoint.balance = float(balance)
+        checkpoint.save()
+        account.current_balance = balance
+        account.save()
+
+    return redirect("users:profile")

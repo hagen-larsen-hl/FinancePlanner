@@ -1,0 +1,8 @@
+.justify-content-right {
+    justify-content: right;
+}
+
+.editable {
+    cursor: pointer;
+    background-color: aqua;
+}

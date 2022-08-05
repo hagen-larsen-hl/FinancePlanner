@@ -1,28 +1,36 @@
 <div>
-<table class="table table-hover border border-light">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Institution</th>
-            <th scope="col">Balance</th>
-        </tr>
-    </thead>
-    <tbody>
-        <p>{{ accounts }}</p>
-        {% for account in accounts %}
+    <div class="border">
+    <table id="table-accounts" class="table table-hover border border-light m-2">
+        <thead>
             <tr>
-                <td>{{ account.name }}</td>
-                <td>{{ account.institution_id.name }}</td>
-                <td>${{ account.current_balance }}</td>
+                <th scope="col">Name</th>
+                <th scope="col">Institution</th>
+                <th scope="col">Balance</th>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <p>{{ accounts }}</p>
+            {% for account in accounts %}
+                <tr id="{{ account.id }}-table-row">
+                    <td id="{{ account.id }}-name">{{ account.name }}</td>
+                    <td id="{{ account.id }}-institution">{{ account.institution_id.name }}</td>
+                    <td id="{{ account.id }}-balance">${{ account.current_balance }}</td>
+                    <td id="{{ account.id }}-buttons">
+                        <a id="{{ account.id }}-edit-balance" class="btn btn-secondary" onclick="updateBalance('{{ account.id }}')">Update</a>
+                        <a id="{{ account.id }}-save-balance" class="btn btn-success" onclick="saveBalance('{{ account.id }}')" hidden>Save</a>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
 
-<div>
-    {% for account in accounts %}
-        {% include 'accounts/account_card.html' with account=account %}
-    {% endfor %}
-</div>
+    <div>
+        {% for account in accounts %}
+            {% include 'accounts/account_card.html' with account=account %}
+        {% endfor %}
+    </div>
+
+    {% load static %}
+    <script src="{% static 'accounts/accounts.js' %}"></script> 
 
 </div>
