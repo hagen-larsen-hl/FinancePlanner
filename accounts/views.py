@@ -15,6 +15,12 @@ def createAccount(request):
             account.user_id = request.user
             account.current_balance = account.starting_balance
             account.save()
+            checkpoint = AccountCheckpoint()
+            checkpoint.account_id = account
+            checkpoint.old_balance = account.starting_balance
+            checkpoint.new_balance = account.starting_balance
+            checkpoint.delta = 0
+            checkpoint.save()
             messages.success(request, "Account created successfully.")
             return redirect("users:profile")
         messages.error(request, "There was invalid information in your account form. Please review and try again.")
