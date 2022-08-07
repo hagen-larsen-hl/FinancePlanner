@@ -3,8 +3,8 @@
 {% block content %}
 
 <!--Register-->
-<div class="d-flex justify-content-center m-2">
-    <div class="col-6">
+<div class="justify-content-center m-2">
+    <div class="col-12">
         <div class="card m-2">
             <div class="card-header">
                 <h1>Welcome, {{ user.first_name }}!</h1>
@@ -15,12 +15,22 @@
         </div>
     </div>
 
-    <div class="col-6">
-        <h1>Accounts Summary</h1>
-        <div>
-            {% include 'accounts/user_accounts_table.html' with accounts=user_accounts %}
+    <div class="d-flex justify-content-center">
+        <div class="col-6 p-4">
+            <h1>Accounts Summary</h1>
+            <div>
+                {% include 'accounts/user_accounts_table.html' with accounts=user_accounts %}
+            </div>
+            <div id="chart_div"></div>
         </div>
-        <div id="chart_div"></div>
+
+        <div class="col-6 p-4">
+            <h1>Budgets</h1>
+            <div>
+                {% include 'budgets/user_budgets_table.html' with budgets=user_budgets %}
+            </div>
+            <div id="chart_div"></div>
+        </div>
     </div>
 </div>
 

@@ -59,7 +59,7 @@ function discardEdit(accountId) {
     discardEdit.hidden = true;
 }
 
-function generateChart(labels, data) {
+function generateChart() {
     const labels = [
         'January',
         'February',

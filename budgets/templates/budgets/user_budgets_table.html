@@ -1,0 +1,31 @@
+<div>
+    <div class="">
+    <table id="table-budgets" class="table px-4">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Start</th>
+                <th scope="col">End</th>
+                <th scope="col">Budget</th>
+                <th scope="col">Actual</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for budget in budgets %}
+                <tr id="budget-{{ budget.id }}-table-row">
+                    <td id="budget-{{ budget.id }}-name">{{ budget.name }}</td>
+                    <td id="budget-{{ budget.id }}-start">{{ budget.start_date }}</td>
+                    <td id="budget-{{ budget.id }}-end">{{ budget.end_date }}</td>
+                    <td id="budget-{{ budget.id }}-expected-amount">${{ budget.expected_amount }}</td>
+                    <td id="budget-{{ budget.id }}-actual-amount">${{ budget.actual_amount }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    {% load static %}
+    <!-- <script src="{% static 'budgets/budgets.js' %}"></script>  -->
+
+</div>

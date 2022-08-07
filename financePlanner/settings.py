@@ -37,6 +37,7 @@ ADMINS = [
 
 INSTALLED_APPS = [
     'accounts',
+    'budgets',
     'users',
     'django.contrib.admin',
     'django.contrib.auth',
