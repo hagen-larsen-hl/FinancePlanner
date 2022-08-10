@@ -44,5 +44,3 @@ class NewBudgetItemForm(forms.ModelForm):
         account_id = cleaned_data.get('account_id')
         category_id = cleaned_data.get('category_id')
         budget_amount = cleaned_data.get('budget_amount')
-        if BudgetItem.objects.filter(name=name, account_id=account_id, category_id=category_id, budget_amount=budget_amount).exists():
-            raise ValidationError('Budget item already exists.')
