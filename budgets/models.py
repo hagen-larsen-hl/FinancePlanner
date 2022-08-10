@@ -32,15 +32,17 @@ class BudgetItemCategory(models.Model):
 
 
 class BudgetItem(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
-    budget = models.ForeignKey(Budget, on_delete=models.CASCADE, related_name='budget_item_ids')
+    account_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='budget_item_ids')
+    budget_amount = models.DecimalField(max_digits=20, decimal_places=2)
     category_id = models.ForeignKey(BudgetItemCategory, on_delete=models.CASCADE)
     create_date = models.DateTimeField(auto_now_add=True)
-    budget_amount = models.DecimalField(max_digits=20, decimal_places=2, default=0)
-    actual_amount = models.DecimalField(max_digits=20, decimal_places=2, default=0)
-    delta = models.DecimalField(max_digits=20, decimal_places=2, default=0)
-    account_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='budget_item_ids')
+    name = models.CharField(max_length=255)
+    
+    budget_id = models.ForeignKey(Budget, on_delete=models.CASCADE, related_name='budget_item_ids', null=True)
+    delta = models.DecimalField(max_digits=20, decimal_places=2, default=0, null=True)
+
+    description = models.TextField(null=True)
+    actual_amount = models.DecimalField(max_digits=20, decimal_places=2, default=0, null=True)
 
     class Meta:
         ordering = ['account_id', 'category_id', 'budget_amount']

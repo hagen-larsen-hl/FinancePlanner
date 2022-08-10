@@ -18,6 +18,8 @@ class Account(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
 
+    __str__ = lambda self: self.name
+
 
 class AccountCheckpoint(models.Model):
     account_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="checkpoint_ids", null=True)

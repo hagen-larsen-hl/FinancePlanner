@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib import messages
-from budgets.forms import NewBudgetForm
-from budgets.models import Budget
+from budgets.forms import NewBudgetForm, NewBudgetItemForm
+from budgets.models import Budget, BudgetItem
+from accounts.models import Account
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
@@ -22,5 +23,22 @@ def createBudget(request):
 
 
 def viewBudget(request, pk):
-    budget = get_object_or_404(Budget, pk=pk)
-    return render(request, "budgets/budget_detail.html", {"budget": budget})
+    if request.method == "POST":
+        form = NewBudgetItemForm(request.POST)
+        print(form.is_valid())
+        if form.is_valid():
+            budgetItem = form.save()
+            budgetItem.budget_id = get_object_or_404(Budget, pk=pk)
+            budgetItem.save()
+            messages.success(request, "Budget item created successfully.")
+            return redirect("budgets:view", pk=pk)
+        messages.error(request, "There was invalid information in your budget item form. Please review and try again.")
+    else:
+        budget = get_object_or_404(Budget, pk=pk)
+        budget_items = BudgetItem.objects.filter(budget_id=pk)
+        all_items = BudgetItem.objects.all()
+        print(budget_items)
+        print(all_items)
+        add_line_form = NewBudgetItemForm()
+        add_line_form.fields['account_id'].queryset = Account.objects.filter(user_id=request.user)
+        return render(request, "budgets/budget_detail.html", {"budget": budget, "budget_items": budget_items, "add_line_form": add_line_form})

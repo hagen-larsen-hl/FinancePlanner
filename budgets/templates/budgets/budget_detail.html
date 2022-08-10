@@ -7,7 +7,7 @@
     <p>{{ budget.description }}</p>
     <h3>{{ budget.start_date }} - {{ budget.end_date }}</h3>
 
-    <table class="table">
+    <table class="table table-secondary">
         <thead>
             <tr>
                 <th scope="col">Name</th>
@@ -19,23 +19,29 @@
             </tr>
         </thead>
         <tbody>
-            {% for line in budget.budget_line_ids %}
-            <tr id="budget-line-{{ line.id }}-row">
-                <td id="budget-line-{{ line.id }}-name">{{ line.name }}</td>
-                <td id="budget-line-{{ line.id }}-account">{{ line.account_id }}</td>
-                <td id="budget-line-{{ line.id }}-category">{{ line.category_id }}</td>
-                <td id="budget-line-{{ line.id }}-budget-amount">${{ line.budget_amount }}</td>
-                <td id="budget-line-{{ line.id }}-actual-amount">${{ line.actual_amount }}</td>
-                <td id="budget-line-{{ line.id }}-delta">${{ line.delta }}</td>
+            {% for item in budget_items %}
+            <tr id="budget-line-{{ item.id }}-row">
+                <td id="budget-line-{{ item.id }}-name">{{ item.name }}</td>
+                <td id="budget-line-{{ item.id }}-account">{{ item.account_id }}</td>
+                <td id="budget-line-{{ item.id }}-category">{{ item.category_id }}</td>
+                <td id="budget-line-{{ item.id }}-budget-amount">${{  item.budget_amount }}</td>
+                <td id="budget-line-{{ item.id }}-actual-amount">${{ item.actual_amount }}</td>
+                <td id="budget-line-{{ item.id }}-delta">${{ item.delta }}</td>
             </tr>
             {% endfor %}
             <tr id="add-budget-line-row">
-                <td id="add-budget-name"><button id="add-budget-line-row" class="btn btn-success" onclick="addBudgetItem(`{{ budget.id }}`)">Add Item</button></td>
-                <td id="add-budget-account"></td>
-                <td id="add-budget-category"></td>
-                <td id="add-budget-budget-amount"></td>
-                <td id="add-budget-actual-amount"></td>
-                <td id="add-budget-delta"></td>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in add_line_form %}
+                        <td id="{{ field.id }}">{{ field }}</td>
+                    {% endfor %}
+                    <!-- <td id="add-budget-name"><input type="text" class="form-control" placeholder="Add a budget item..."></td>
+                    <td id="add-budget-account"><input type="text" class="form-control"></td>
+                    <td id="add-budget-category"><input type="text" class="form-control"></td>
+                    <td id="add-budget-budget-amount"><input type="text" class="form-control"></td>
+                    <td id="add-budget-actual-amount"><input type="text" class="form-control"></td> -->
+                    <td id="add-budget-delta"><button type="submit" class="btn btn-success">Add</button></td>
+                </form>
             </tr>
             <tr id="budget-totals-row">
                 <td>Totals</td>
