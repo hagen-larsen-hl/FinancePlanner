@@ -11,6 +11,7 @@ class Budget(models.Model):
     end_date = models.DateField()
     expected_amount = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     actual_amount = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    delta = models.DecimalField(max_digits=20, decimal_places=2, default=0, blank=True, null=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -18,6 +19,10 @@ class Budget(models.Model):
 
     class Meta:
         ordering = ['end_date', 'start_date']
+
+    def save(self, *args, **kwargs):
+        self.delta = self.expected_amount - self.actual_amount
+        super(Budget, self).save(*args, **kwargs)
 
 
 class BudgetItemCategory(models.Model):
@@ -49,6 +54,15 @@ class BudgetItem(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.delta = self.budget_amount - self.actual_amount
+        if self.budget_id:
+            self.budget_id.actual_amount += self.actual_amount
+            self.budget_id.expected_amount += self.budget_amount
+            self.budget_id.save()   
+        super(BudgetItem, self).save(*args, **kwargs)
+
 
 
 

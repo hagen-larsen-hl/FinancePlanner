@@ -25,7 +25,6 @@ def createBudget(request):
 def viewBudget(request, pk):
     if request.method == "POST":
         form = NewBudgetItemForm(request.POST)
-        print(form.is_valid())
         if form.is_valid():
             budgetItem = form.save()
             budgetItem.budget_id = get_object_or_404(Budget, pk=pk)
@@ -37,8 +36,6 @@ def viewBudget(request, pk):
         budget = get_object_or_404(Budget, pk=pk)
         budget_items = BudgetItem.objects.filter(budget_id=pk)
         all_items = BudgetItem.objects.all()
-        print(budget_items)
-        print(all_items)
         add_item_form = NewBudgetItemForm()
         add_item_form.fields['account_id'].queryset = Account.objects.filter(user_id=request.user)
         return render(request, "budgets/budget_detail.html", {"budget": budget, "budget_items": budget_items, "add_item_form": add_item_form})
