@@ -7,8 +7,8 @@
     <p>{{ budget.description }}</p>
     <h3>{{ budget.start_date }} - {{ budget.end_date }}</h3>
 
-    <table class="table table-secondary">
-        <thead>
+    <table class="table table-bordered">
+        <thead class="table-dark">
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Account</th>
@@ -22,7 +22,7 @@
         <tbody>
             {% for item in budget_items %}
             <tr id="budget-item-{{ item.id }}-row">
-                <td id="budget-item-{{ item.id }}-name">{{ item.name }}</td>
+                <td id="budget-item-{{ item.id }}-name" class="text-align-right">{{ item.name }}</td>
                 <td id="budget-item-{{ item.id }}-account">{{ item.account_id }}</td>
                 <td id="budget-item-{{ item.id }}-category">{{ item.category_id }}</td>
                 <td id="budget-item-{{ item.id }}-budget-amount">${{  item.budget_amount }}</td>
@@ -39,16 +39,13 @@
                     {% for field in add_item_form %}
                         <td id="{{ field.id }}">{{ field }}</td>
                     {% endfor %}
-                    <!-- <td id="add-budget-name"><input type="text" class="form-control" placeholder="Add a budget item..."></td>
-                    <td id="add-budget-account"><input type="text" class="form-control"></td>
-                    <td id="add-budget-category"><input type="text" class="form-control"></td>
-                    <td id="add-budget-budget-amount"><input type="text" class="form-control"></td>
-                    <td id="add-budget-actual-amount"><input type="text" class="form-control"></td> -->
                     <td></td>
                     <td id="add-budget-delta"><button type="submit" class="btn btn-success"><i class="fa-solid fa-plus"></i></button></td>
                     
                 </form>
             </tr>
+        </tbody>
+        <tfoot>
             <tr id="budget-totals-row">
                 <td>Totals</td>
                 <td></td>
@@ -58,7 +55,7 @@
                 <td>${{ budget.delta }}</td>
                 <td></td>
             </tr>
-        </tbody>
+        </tfoot>
     </table>
 
     {% load static %}
