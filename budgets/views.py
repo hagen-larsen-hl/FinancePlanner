@@ -39,6 +39,13 @@ def viewBudget(request, pk):
         all_items = BudgetItem.objects.all()
         print(budget_items)
         print(all_items)
-        add_line_form = NewBudgetItemForm()
-        add_line_form.fields['account_id'].queryset = Account.objects.filter(user_id=request.user)
-        return render(request, "budgets/budget_detail.html", {"budget": budget, "budget_items": budget_items, "add_line_form": add_line_form})
+        add_item_form = NewBudgetItemForm()
+        add_item_form.fields['account_id'].queryset = Account.objects.filter(user_id=request.user)
+        return render(request, "budgets/budget_detail.html", {"budget": budget, "budget_items": budget_items, "add_item_form": add_item_form})
+
+
+def deleteBudgetItem(request, pk):
+    budgetItem = get_object_or_404(BudgetItem, pk=pk)
+    budgetItem.delete()
+    messages.success(request, "Budget item deleted successfully.")
+    return redirect("budgets:view", pk=budgetItem.budget_id.id)

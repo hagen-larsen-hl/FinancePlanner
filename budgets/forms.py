@@ -37,10 +37,3 @@ class NewBudgetItemForm(forms.ModelForm):
     class Meta:
         model = BudgetItem
         fields = ['name', 'account_id', 'category_id', 'budget_amount', 'actual_amount']
-
-    def clean(self):
-        cleaned_data = super().clean()
-        name = cleaned_data.get('name')
-        account_id = cleaned_data.get('account_id')
-        category_id = cleaned_data.get('category_id')
-        budget_amount = cleaned_data.get('budget_amount')
