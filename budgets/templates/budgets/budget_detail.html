@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="justify-content-center m-2">
+    <h1>{{ budget.name }}</h1>
+    <p>{{ budget.description }}</p>
+    <h3>{{ budget.start_date }} - {{ budget.end_date }}</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Account</th>
+                <th scope="col">Category</th>
+                <th scope="col">Budget</th>
+                <th scope="col">Actual</th>
+                <th scope="col">Difference</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in budget.budget_line_ids %}
+            <tr id="budget-line-{{ line.id }}-row">
+                <td id="budget-line-{{ line.id }}-name">{{ line.name }}</td>
+                <td id="budget-line-{{ line.id }}-account">{{ line.account_id }}</td>
+                <td id="budget-line-{{ line.id }}-category">{{ line.category_id }}</td>
+                <td id="budget-line-{{ line.id }}-budget-amount">${{ line.budget_amount }}</td>
+                <td id="budget-line-{{ line.id }}-actual-amount">${{ line.actual_amount }}</td>
+                <td id="budget-line-{{ line.id }}-delta">${{ line.delta }}</td>
+            </tr>
+            {% endfor %}
+            <tr id="add-budget-line-row">
+                <td id="add-budget-name"><button id="add-budget-line-row" class="btn btn-success" onclick="addBudgetItem(`{{ budget.id }}`)">Add Item</button></td>
+                <td id="add-budget-account"></td>
+                <td id="add-budget-category"></td>
+                <td id="add-budget-budget-amount"></td>
+                <td id="add-budget-actual-amount"></td>
+                <td id="add-budget-delta"></td>
+            </tr>
+            <tr id="budget-totals-row">
+                <td>Totals</td>
+                <td></td>
+                <td></td>
+                <td>${{ budget.expected_amount }}</td>
+                <td>${{ budget.actual_amount }}</td>
+                <td>${{ budget.delta }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% load static %}
+    <script src="{% static 'budgets/budgets.js' %}"></script>
+</div>
+
+{% endblock %}

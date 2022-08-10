@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
 from budgets.forms import NewBudgetForm
+from budgets.models import Budget
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
@@ -18,3 +19,8 @@ def createBudget(request):
     else:
         form = NewBudgetForm()
     return render(request=request, template_name="budgets/budget_form.html", context={"form": form})
+
+
+def viewBudget(request, pk):
+    budget = get_object_or_404(Budget, pk=pk)
+    return render(request, "budgets/budget_detail.html", {"budget": budget})

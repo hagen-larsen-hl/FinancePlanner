@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from accounts.models import Account
 
 
 class Budget(models.Model):
@@ -34,13 +35,15 @@ class BudgetItem(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     budget = models.ForeignKey(Budget, on_delete=models.CASCADE, related_name='budget_item_ids')
-    budget_item_category_id = models.ForeignKey(BudgetItemCategory, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(BudgetItemCategory, on_delete=models.CASCADE)
     create_date = models.DateTimeField(auto_now_add=True)
     budget_amount = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     actual_amount = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    delta = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    account_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='budget_item_ids')
 
     class Meta:
-        ordering = ['create_date']
+        ordering = ['account_id', 'category_id', 'budget_amount']
 
     def __str__(self):
         return self.name

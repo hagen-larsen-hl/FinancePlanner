@@ -20,7 +20,7 @@ class Account(models.Model):
 
 
 class AccountCheckpoint(models.Model):
-    account_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="checkpoint_ids")
+    account_id = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="checkpoint_ids", null=True)
     old_balance = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     new_balance = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     delta = models.DecimalField(max_digits=20, decimal_places=2, default=0)

@@ -14,7 +14,7 @@
         <tbody>
             {% for budget in budgets %}
                 <tr id="budget-{{ budget.id }}-table-row">
-                    <td id="budget-{{ budget.id }}-name">{{ budget.name }}</td>
+                    <td id="budget-{{ budget.id }}-name"><a href="/budgets/{{ budget.id }}">{{ budget.name }}</a></td>
                     <td id="budget-{{ budget.id }}-start">{{ budget.start_date }}</td>
                     <td id="budget-{{ budget.id }}-end">{{ budget.end_date }}</td>
                     <td id="budget-{{ budget.id }}-expected-amount">${{ budget.expected_amount }}</td>
