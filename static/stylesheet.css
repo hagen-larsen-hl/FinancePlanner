@@ -6,3 +6,19 @@
     cursor: pointer;
     background-color: aqua;
 }
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.inline {
+    display: inline;
+}
