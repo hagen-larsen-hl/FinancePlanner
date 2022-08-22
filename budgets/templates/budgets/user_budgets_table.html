@@ -19,6 +19,9 @@
                     <td id="budget-{{ budget.id }}-end">{{ budget.end_date }}</td>
                     <td id="budget-{{ budget.id }}-expected-amount">${{ budget.expected_amount }}</td>
                     <td id="budget-{{ budget.id }}-actual-amount">${{ budget.actual_amount }}</td>
+                    <td id="archive-budget-{{ budget.id }}-button" class="text-align-center">
+                        <button type="button" class="btn btn-danger" onclick="archiveBudget(`{{ budget.id }}`)"><i class="fa-solid fa-box-archive"></i></button>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -26,6 +29,6 @@
     </div>
 
     {% load static %}
-    <!-- <script src="{% static 'budgets/budgets.js' %}"></script>  -->
+    <script src="{% static 'budgets/budgets.js' %}"></script> 
 
 </div>

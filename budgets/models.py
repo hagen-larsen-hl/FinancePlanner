@@ -64,6 +64,13 @@ class BudgetItem(models.Model):
             self.budget_id.save()   
         super(BudgetItem, self).save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        if self.budget_id:
+            self.budget_id.actual_amount -= self.actual_amount
+            self.budget_id.expected_amount -= self.budget_amount
+            self.budget_id.save()
+        super(BudgetItem, self).delete(*args, **kwargs)
+
 
 
 

@@ -8,6 +8,7 @@ from django.contrib import messages
 
 
 def createBudget(request):
+    print("Worrking")
     if request.method == "POST":
         form = NewBudgetForm(request.POST)
         if form.is_valid():
@@ -40,14 +41,18 @@ def viewBudget(request, pk):
         return render(request, "budgets/budget_detail.html", {"budget": budget, "budget_items": budget_items, "add_item_form": add_item_form})
 
 
+def archiveBudget(request, pk):
+    budget = get_object_or_404(Budget, pk=pk)
+    if budget:
+        budget.archived = True
+        budget.save()
+        messages.success(request, "Budget archived successfully.")
+        return redirect("users:profile")
+
+
 def deleteBudgetItem(request, pk):
     budgetItem = get_object_or_404(BudgetItem, pk=pk)
     if budgetItem:
-        budget = budgetItem.budget_id
-        budget.expected_amount -= budgetItem.budget_amount
-        budget.actual_amount -= budgetItem.actual_amount
-        budget.delta -= budgetItem.delta
-        budget.save()
         budgetItem.delete()
         messages.success(request, "Budget item deleted successfully.")
         return redirect("budgets:view", pk=budgetItem.budget_id.pk)

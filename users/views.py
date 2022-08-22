@@ -48,5 +48,5 @@ def logout_request(request):
 
 def profile(request):
 	user_accounts = Account.objects.filter(user_id=request.user)
-	user_budgets = Budget.objects.filter(user_id=request.user)
+	user_budgets = Budget.objects.filter(user_id=request.user, archived=False)
 	return render(request, 'users/profile.html', {'user_accounts': user_accounts, 'user_budgets': user_budgets})

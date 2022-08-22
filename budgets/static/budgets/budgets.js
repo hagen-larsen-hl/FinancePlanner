@@ -29,3 +29,17 @@ function deleteBudgetItem(itemId) {
         },
     })
 }
+
+function archiveBudget(budgetId) {
+    let budget = document.getElementById(`budget-${budgetId}-table-row`);
+    budget.remove();
+    return fetch(`/budgets/archive/${budgetId}/`, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json',
+            "Accept": "application/json"
+        },
+    })
+}
