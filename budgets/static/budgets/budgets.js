@@ -17,6 +17,8 @@ function getCookie(name) {
 var csrftoken = getCookie('csrftoken');
 
 function deleteBudgetItem(itemId) {
+    let budgetItem = document.getElementById(`budget-item-${itemId}-row`);
+    budgetItem.remove();
     return fetch(`/budgets/item/delete/${itemId}/`, {
         method: 'POST',
         credentials: 'same-origin',

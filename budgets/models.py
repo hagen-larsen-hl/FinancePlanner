@@ -4,6 +4,7 @@ from accounts.models import Account
 
 
 class Budget(models.Model):
+    archived = models.BooleanField(default=False)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
