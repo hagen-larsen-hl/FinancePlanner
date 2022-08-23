@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Finances</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -9,11 +8,35 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/users/">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/accounts/create">Create Account</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Accounts
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/accounts/create">Create Account</a></li>
+              <li><a class="dropdown-item" href="#">Active Accounts</a></li>
+              <li><a class="dropdown-item" href="#">Archived Accounts</a></li>
+            </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/budgets/create">Create Budget</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Budgets
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/budgets/create">Create Budget</a></li>
+              <li><a class="dropdown-item" href="">Active Budgets</a></li>
+              <li><a class="dropdown-item" href="">Past Budgets</a></li>
+              <li><a class="dropdown-item" href="">Archived Budgets</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Forecasts
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/forecasts/net-worth">Net Worth</a></li>
+              <li><a class="dropdown-item" href="#">Individual Accounts</a></li>
+            </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled">Disabled</a>
