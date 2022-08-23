@@ -1,7 +1,8 @@
 const DATA_COUNT = 7;
 const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
+let data = {}
 
-accounts = fetch('/accounts/get/', {
+accounts = fetch('/accounts/api/get-checkpoints/', {
     method: 'GET',
     credentials: 'same-origin',
     headers: {
@@ -14,7 +15,7 @@ accounts = fetch('/accounts/get/', {
         });
         
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-const data = {
+data = {
   labels: labels,
   datasets: [
     {

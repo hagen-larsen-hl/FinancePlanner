@@ -38,6 +38,7 @@ ADMINS = [
 INSTALLED_APPS = [
     'accounts',
     'budgets',
+    'forecasts',
     'users',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'localflavor',
     'jquery',
     'fontawesomefree',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

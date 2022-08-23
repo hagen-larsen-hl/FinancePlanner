@@ -1,6 +1,3 @@
-import datetime
-from tabnanny import check
-from unicodedata import decimal
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import NewAccountForm, NewInstitutionForm
 from django.contrib import messages

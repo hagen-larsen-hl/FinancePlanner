@@ -8,7 +8,6 @@ from django.contrib import messages
 
 
 def createBudget(request):
-    print("Worrking")
     if request.method == "POST":
         form = NewBudgetForm(request.POST)
         if form.is_valid():
