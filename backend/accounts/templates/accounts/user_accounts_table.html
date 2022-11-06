@@ -1,0 +1,40 @@
+<div>
+    <div class="">
+    <table id="table-accounts" class="table px-4">
+        <thead>
+            <tr>
+                <th scope="col">Log</th>
+                <th scope="col">Name</th>
+                <th scope="col">Institution</th>
+                <th scope="col">Balance</th>
+                <th scope="col">Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in accounts %}
+                <tr id="{{ account.id }}-table-row">
+                    <td>
+                        <a id="{{ account.id }}-log" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#history-{{ account.id }}"><i class="fa-solid fa-list"></i></a></td>
+                    <td id="{{ account.id }}-name">{{ account.name }}</td>
+                    <td id="{{ account.id }}-institution">{{ account.institution_id.name }}</td>
+                    <td id="{{ account.id }}-balance">${{ account.current_balance }}</td>
+                    <td id="{{ account.id }}-buttons">
+                        <a id="{{ account.id }}-edit-balance" class="btn btn-light" onclick="updateBalance('{{ account.id }}')"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a id="{{ account.id }}-save-balance" class="btn btn-success" onclick="saveBalance('{{ account.id }}')" hidden>Save</a>
+                        <a id="{{ account.id }}-discard-edit" class="btn btn-light" onclick="discardEdit('{{ account.id }}')" hidden><i class="fa-solid fa-trash"></i></a>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    <div>
+        {% for account in accounts %}
+            {% include 'accounts/account_history.html' with account=account %}
+        {% endfor %}
+    </div>
+
+    {% load static %}
+    <script src="{% static 'accounts/accounts.js' %}"></script> 
+
+</div>

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--Register-->
+<div class="justify-content-center m-2">
+    <div class="col-12">
+        <div class="card m-2">
+            <div class="card-header">
+                <h1>Welcome, {{ user.first_name }}!</h1>
+            </div>
+            <div class="card-body">
+                <p>This is where your profile will be.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="col-6 p-4">
+            <h1>Accounts Summary</h1>
+            <div>
+                {% include 'accounts/user_accounts_table.html' with accounts=user_accounts %}
+            </div>
+            <div id="chart_div"></div>
+        </div>
+
+        <div class="col-6 p-4">
+            <h1>Budgets</h1>
+            <div>
+                {% include 'budgets/user_budgets_table.html' with budgets=user_budgets %}
+            </div>
+            <div id="chart_div"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(drawLineColors);
+
+    function drawLineColors() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'X');
+        data.addColumn('number', 'Savings');
+        data.addColumn('number', 'Checking');
+
+        data.addRows([
+            [0, 0, 0],    [1, 10, 5],   [2, 23, 15],  [3, 17, 9],   [4, 18, 10],  [5, 9, 5],
+            [6, 11, 3],   [7, 27, 19],  [8, 33, 25],  [9, 40, 32],  [10, 32, 24], [11, 35, 27],
+            [12, 30, 22], [13, 40, 32], [14, 42, 34], [15, 47, 39], [16, 44, 36], [17, 48, 40],
+            [18, 52, 44], [19, 54, 46], [20, 42, 34], [21, 55, 47], [22, 56, 48], [23, 57, 49],
+            [24, 60, 52], [25, 50, 42], [26, 52, 44], [27, 51, 43], [28, 49, 41], [29, 53, 45],
+            [30, 55, 47], [31, 60, 52], [32, 61, 53], [33, 59, 51], [34, 62, 54], [35, 65, 57],
+            [36, 62, 54], [37, 58, 50], [38, 55, 47], [39, 61, 53], [40, 64, 56], [41, 65, 57],
+            [42, 63, 55], [43, 66, 58], [44, 67, 59], [45, 69, 61], [46, 69, 61]
+        ]);
+
+        var options = {
+            hAxis: {
+            title: 'Time'
+            },
+            vAxis: {
+            title: 'Dollars'
+            },
+            colors: ['#a52714', '#097138']
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+        }
+    </script>
+
+{% endblock %}

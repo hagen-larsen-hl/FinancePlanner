@@ -1,0 +1,30 @@
+@import url("http://fonts.googleapis.com/css?family=Oswald:400,300,700");
+
+body {
+    font-family: 'Oswald', sans-serif !important;
+  }
+  
+.justify-content-right {
+    justify-content: right;
+}
+
+.editable {
+    cursor: pointer;
+    background-color: aqua;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.inline {
+    display: inline;
+}

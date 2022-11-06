@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="justify-content-center m-2">
+    <div class="p-4">
+        <h1 class="text-muted inline">Name: </h1><h1 class="inline">{{ budget.name }}</h1><br/>
+        <h3 class="text-muted inline">Dates: </h3><h3 class="inline">{{ budget.start_date }} - {{ budget.end_date }}</h3>
+
+   
+        <table class="table table-bordered my-4">
+        <thead class="table-secondary">
+            <tr>
+                <th scope="col" class="text-align-center">Name</th>
+                <th scope="col" class="text-align-center">Account</th>
+                <th scope="col" class="text-align-center">Category</th>
+                <th scope="col" class="text-align-center">Budget</th>
+                <th scope="col" class="text-align-center">Actual</th>
+                <th scope="col" class="text-align-center">Difference</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in budget_items %}
+            <tr id="budget-item-{{ item.id }}-row">
+                <td id="budget-item-{{ item.id }}-name" class="text-align-center">{{ item.name }}</td>
+                <td id="budget-item-{{ item.id }}-account" class="text-align-center">{{ item.account_id }}</td>
+                <td id="budget-item-{{ item.id }}-category" class="text-align-center">{{ item.category_id }}</td>
+                <td id="budget-item-{{ item.id }}-budget-amount" class="text-align-center">${{  item.budget_amount }}</td>
+                <td id="budget-item-{{ item.id }}-actual-amount" class="text-align-center">${{ item.actual_amount }}</td>
+                <td id="budget-item-{{ item.id }}-delta" class="text-align-center">${{ item.delta }}</td>
+                <td id="delete-item-{{ item.id }}-button" class="text-align-center">
+                    <button type="button" class="btn btn-danger" onclick="deleteBudgetItem(`{{ item.id }}`)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr id="add-budget-item-row">
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in add_item_form %}
+                        <td id="{{ field.id }}" class="text-align-center">{{ field }}</td>
+                    {% endfor %}
+                    <td></td>
+                    <td id="add-budget-delta" class="text-align-center"><button type="submit" class="btn btn-success"><i class="fa-solid fa-plus"></i></button></td>
+                    
+                </form>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr id="budget-totals-row">
+                <td class="text-align-center">Totals</td>
+                <td class="text-align-center"></td>
+                <td class="text-align-center"></td>
+                <td class="text-align-center">${{ budget.expected_amount }}</td>
+                <td class="text-align-center">${{ budget.actual_amount }}</td>
+                <td class="text-align-center">${{ budget.delta }}</td>
+                <td class="text-align-center"></td>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+
+    {% load static %}
+    <script src="{% static 'budgets/budgets.js' %}"></script>
+</div>
+
+{% endblock %}

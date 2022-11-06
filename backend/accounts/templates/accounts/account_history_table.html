@@ -1,0 +1,20 @@
+<table id="table-account-checkpoints" class="table px-4">
+    
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Balance</th>
+            <th scope="col">Change</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for checkpoint in checkpoints %}
+            <tr id="{{ checkpoint.id }}-table-row">
+                <td id="{{ account.id }}-date">{{ checkpoint.create_date }}</td>
+                <td id="{{ account.id }}-balance">${{ checkpoint.new_balance }}</td>
+                <td id="{{ account.id }}-delta">${{ checkpoint.delta }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
